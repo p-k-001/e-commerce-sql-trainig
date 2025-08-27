@@ -1,4 +1,5 @@
 // server.js - Node.js Backend for SQL Query Interface
+require('dotenv').config();
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
@@ -21,6 +22,16 @@ app.get("/api/health", (req, res) => {
     status: "OK",
     message: "SQL Query Interface Backend is running",
     timestamp: new Date().toISOString(),
+  });
+});
+
+// Get default connection credentials
+app.get("/api/config", (req, res) => {
+  res.json({
+    host: process.env.DB_HOST || "",
+    database: process.env.DB_DATABASE || "neondb",
+    username: process.env.DB_USERNAME || "",
+    // Note: We don't send the password for security reasons
   });
 });
 

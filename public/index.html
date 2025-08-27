@@ -967,11 +967,30 @@ ORDER BY month;`,
         }
       }
 
-      // Initialize with a welcome message
+      // Load default configuration
+      async function loadDefaultConfig() {
+        try {
+          const response = await fetch(`${API_BASE}/config`);
+          const config = await response.json();
+          
+          document.getElementById("host").value = config.host || "";
+          document.getElementById("database").value = config.database || "neondb";
+          document.getElementById("username").value = config.username || "";
+          
+          console.log("Default configuration loaded");
+        } catch (error) {
+          console.error("Failed to load default configuration:", error);
+        }
+      }
+
+      // Initialize with a welcome message and load config
       showStatus(
         "👋 Welcome! Fill in your Neon database credentials and connect to start querying.",
         "info"
       );
+      
+      // Load default configuration on page load
+      loadDefaultConfig();
     </script>
   </body>
 </html>
