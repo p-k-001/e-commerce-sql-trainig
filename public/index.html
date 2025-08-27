@@ -48,13 +48,20 @@
       }
 
       .content {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .top-section {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 30px;
-        padding: 30px;
       }
 
       .query-section {
+        grid-column: span 2;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -241,6 +248,10 @@
         overflow-y: auto;
       }
 
+      .table-container {
+        overflow-x: auto;
+      }
+
       .results-header {
         background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
         padding: 20px;
@@ -277,12 +288,23 @@
         color: #495057;
         border-bottom: 2px solid #dee2e6;
         white-space: nowrap;
+        min-width: 120px;
       }
 
       td {
         padding: 12px;
         border-bottom: 1px solid #f1f3f4;
         vertical-align: top;
+        white-space: nowrap;
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      td:hover {
+        white-space: normal;
+        word-break: break-word;
+        max-width: none;
       }
 
       tbody tr:hover {
@@ -305,9 +327,28 @@
       }
 
       @media (max-width: 1024px) {
-        .content {
+        .top-section {
           grid-template-columns: 1fr;
           gap: 20px;
+        }
+
+        .query-section {
+          grid-column: span 1;
+        }
+
+        .content {
+          padding: 20px;
+          gap: 20px;
+        }
+
+        .table-container {
+          font-size: 14px;
+        }
+
+        th,
+        td {
+          padding: 8px 6px;
+          min-width: 100px;
         }
       }
 
@@ -326,6 +367,27 @@
 
       .connection-status.disconnected {
         background: #dc3545;
+      }
+
+      .connection-toggle {
+        background: transparent;
+        border: 1px solid #dee2e6;
+        color: #495057;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .connection-toggle:hover {
+        background: #f8f9fa;
+        border-color: #4facfe;
+      }
+
+      .connection-form.hidden {
+        display: none;
       }
 
       .loading {
@@ -357,56 +419,8 @@
       </div>
 
       <div class="content">
+        <!-- SQL Query Section - Now at the top and full width -->
         <div class="query-section">
-          <div class="connection-form">
-            <h3>
-              <span
-                id="connectionStatus"
-                class="connection-status disconnected"
-              ></span
-              >Database Connection
-            </h3>
-            <div class="form-group">
-              <label for="host">Host:</label>
-              <input
-                type="text"
-                id="host"
-                placeholder="your-endpoint.neon.tech"
-                value=""
-              />
-            </div>
-            <div class="form-group">
-              <label for="database">Database:</label>
-              <input
-                type="text"
-                id="database"
-                placeholder="neondb"
-                value="neondb"
-              />
-            </div>
-            <div class="form-group">
-              <label for="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                placeholder="your-username"
-                value=""
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="your-password"
-                value=""
-              />
-            </div>
-            <button class="btn-connect" onclick="connectToDatabase()">
-              <span id="connectText">Connect to Database</span>
-            </button>
-          </div>
-
           <div class="query-input">
             <h3>SQL Query</h3>
             <div class="query-examples">
@@ -461,11 +475,66 @@ ORDER BY p.price DESC;"
           </div>
         </div>
 
-        <div class="results-section">
-          <div id="statusMessage" class="status info">
-            👋 Welcome! Connect to your Neon database and start querying.
+        <!-- Top Section: Connection and Status -->
+        <div class="top-section">
+          <div class="connection-form">
+            <h3>
+              <span
+                id="connectionStatus"
+                class="connection-status disconnected"
+              ></span
+              >Database Connection
+            </h3>
+            <div class="form-group">
+              <label for="host">Host:</label>
+              <input
+                type="text"
+                id="host"
+                placeholder="your-endpoint.neon.tech"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="database">Database:</label>
+              <input
+                type="text"
+                id="database"
+                placeholder="neondb"
+                value="neondb"
+              />
+            </div>
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                placeholder="your-username"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="your-password"
+                value=""
+              />
+            </div>
+            <button class="btn-connect" onclick="connectToDatabase()">
+              <span id="connectText">Connect to Database</span>
+            </button>
           </div>
 
+          <div class="results-section">
+            <div id="statusMessage" class="status info">
+              👋 Welcome! Connect to your Neon database and start querying.
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section - Full width with horizontal scroll -->
+        <div class="results-section">
           <div
             class="results-container"
             id="resultsContainer"
@@ -475,7 +544,9 @@ ORDER BY p.price DESC;"
               <h3>Query Results</h3>
               <div class="query-info" id="queryInfo"></div>
             </div>
-            <div id="resultsContent"></div>
+            <div class="table-container">
+              <div id="resultsContent"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -817,7 +888,7 @@ ORDER BY month;`,
           return;
         }
 
-        // Create table
+        // Create table with horizontal scroll container
         const columns = Object.keys(results.rows[0]);
         let html = "<table><thead><tr>";
 
@@ -837,10 +908,16 @@ ORDER BY month;`,
             if (value === null || value === undefined) {
               value = '<em style="color: #999;">NULL</em>';
             }
-            if (typeof value === "string" && value.length > 100) {
-              value = value.substring(0, 100) + "...";
+            if (typeof value === "string" && value.length > 50) {
+              // Show preview with title containing full value
+              const preview = value.substring(0, 50) + "...";
+              html += `<td title="${value.replace(
+                /"/g,
+                "&quot;"
+              )}">${preview}</td>`;
+            } else {
+              html += `<td title="${value}">${value}</td>`;
             }
-            html += `<td>${value}</td>`;
           });
           html += "</tr>";
         });
