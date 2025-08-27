@@ -983,14 +983,67 @@ ORDER BY month;`,
         }
       }
 
+      // Auto-connect using server-side credentials
+      async function autoConnect() {
+        try {
+          showStatus("🔄 Auto-connecting to database...", "info");
+          
+          const response = await fetch(`${API_BASE}/auto-connect`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            isConnected = true;
+            connectionId = result.connectionId;
+
+            document.getElementById("connectionStatus").className = "connection-status connected";
+            showStatus(`✅ Auto-connected to ${result.serverInfo.database} successfully!`, "success");
+
+            // Update connect button
+            const connectBtn = document.querySelector(".btn-connect");
+            const connectText = document.getElementById("connectText");
+            connectText.textContent = "Connected ✓";
+            connectBtn.style.background = "linear-gradient(135deg, #28a745 0%, #20c997 100%)";
+
+            // Hide connection form after successful auto-connect
+            document.getElementById("topSection").classList.add("hidden");
+            document.getElementById("connectionToggle").style.display = "block";
+            document.getElementById("connectionToggle").textContent = "Show Connection Section";
+
+            // Load schema information
+            await loadSchema();
+          } else {
+            throw new Error(result.error || "Auto-connect failed");
+          }
+        } catch (error) {
+          console.error("Auto-connect error:", error);
+          showStatus(`ℹ️ Auto-connect failed: ${error.message}. Please use manual connection.`, "info");
+          
+          // Ensure connection form is visible if auto-connect fails
+          document.getElementById("topSection").classList.remove("hidden");
+          document.getElementById("connectionToggle").textContent = "Hide Connection Section";
+        }
+      }
+
       // Initialize with a welcome message and load config
       showStatus(
-        "👋 Welcome! Fill in your Neon database credentials and connect to start querying.",
+        "🔄 Initializing application...",
         "info"
       );
       
-      // Load default configuration on page load
-      loadDefaultConfig();
+      // Load default configuration and attempt auto-connect
+      async function initializeApp() {
+        await loadDefaultConfig();
+        await autoConnect();
+      }
+      
+      // Initialize on page load
+      initializeApp();
     </script>
   </body>
 </html>

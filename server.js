@@ -35,6 +35,69 @@ app.get("/api/config", (req, res) => {
   });
 });
 
+// Auto-connect using environment variables
+app.post("/api/auto-connect", async (req, res) => {
+  try {
+    const host = process.env.DB_HOST;
+    const database = process.env.DB_DATABASE || "neondb";
+    const username = process.env.DB_USERNAME;
+    const password = process.env.DB_PASSWORD;
+
+    if (!host || !username || !password) {
+      return res.status(400).json({
+        success: false,
+        error: "Missing required environment variables (DB_HOST, DB_USERNAME, DB_PASSWORD)",
+      });
+    }
+
+    // Create connection string
+    const connectionString = `postgresql://${username}:${password}@${host}/${database}?sslmode=require`;
+
+    // Test connection
+    const pool = new Pool({
+      connectionString,
+      connectionTimeoutMillis: 10000, // 10 seconds
+      idleTimeoutMillis: 30000, // 30 seconds
+      max: 10, // max connections in pool
+    });
+
+    // Test the connection
+    const client = await pool.connect();
+    await client.query("SELECT NOW()");
+    client.release();
+
+    // Store connection for this session
+    const connectionId = Date.now().toString();
+    connections.set(connectionId, pool);
+
+    // Clean up old connections (simple cleanup)
+    if (connections.size > 100) {
+      const oldestKey = connections.keys().next().value;
+      const oldPool = connections.get(oldestKey);
+      await oldPool.end();
+      connections.delete(oldestKey);
+    }
+
+    res.json({
+      success: true,
+      message: "Auto-connected successfully to database",
+      connectionId: connectionId,
+      serverInfo: {
+        host: host,
+        database: database,
+        username: username,
+      },
+    });
+  } catch (error) {
+    console.error("Auto-connect error:", error);
+    res.status(500).json({
+      success: false,
+      error: "Failed to auto-connect to database",
+      details: error.message,
+    });
+  }
+});
+
 // Test database connection
 app.post("/api/connect", async (req, res) => {
   try {
