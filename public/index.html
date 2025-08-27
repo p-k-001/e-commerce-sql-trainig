@@ -338,7 +338,7 @@
 
         .content {
           padding: 20px;
-          gap: 20px;
+          gap: 10px;
         }
 
         .table-container {
@@ -377,7 +377,6 @@
         border-radius: 8px;
         cursor: pointer;
         font-size: 14px;
-        margin-bottom: 15px;
         transition: all 0.3s ease;
       }
 
@@ -392,6 +391,35 @@
 
       .top-section.hidden {
         display: none;
+      }
+
+      .er-diagram-container {
+        text-align: center;
+        margin: 20px 0;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: none;
+      }
+
+      .er-diagram-container.visible {
+        display: block;
+      }
+
+      .er-diagram-container img {
+        max-width: 80%;
+        max-height: 500px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .button-group-toggle {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
       }
 
       .loading {
@@ -423,6 +451,87 @@
       </div>
 
       <div class="content">
+        <!-- Toggle Buttons -->
+        <div class="button-group-toggle" style="margin-bottom: 20px">
+          <button
+            class="connection-toggle"
+            id="connectionToggle"
+            onclick="toggleConnectionSection()"
+          >
+            Hide Connection Section
+          </button>
+          <button
+            class="connection-toggle"
+            id="erDiagramToggle"
+            onclick="toggleERDiagram()"
+          >
+            Show ER Diagram
+          </button>
+        </div>
+
+        <!-- ER Diagram Container -->
+        <div class="er-diagram-container" id="erDiagramContainer">
+          <h3 style="color: #495057; margin-bottom: 15px">
+            Database Schema - ER Diagram
+          </h3>
+          <img
+            src="./static/images/er-diag.png"
+            alt="Entity Relationship Diagram"
+          />
+        </div>
+
+        <!-- Top Section: Connection and Status -->
+        <div class="top-section" id="topSection">
+          <div class="connection-form">
+            <h3>
+              <span
+                id="connectionStatus"
+                class="connection-status disconnected"
+              ></span
+              >Database Connection
+            </h3>
+            <div class="form-group">
+              <label for="host">Host:</label>
+              <input
+                type="text"
+                id="host"
+                placeholder="your-endpoint.neon.tech"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="database">Database:</label>
+              <input
+                type="text"
+                id="database"
+                placeholder="neondb"
+                value="neondb"
+              />
+            </div>
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                placeholder="your-username"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="your-password"
+                value=""
+              />
+            </div>
+            <button class="btn-connect" onclick="connectToDatabase()">
+              <span id="connectText">Connect to Database</span>
+            </button>
+          </div>
+        </div>
+
         <!-- SQL Query Section - Now at the top and full width -->
         <div class="query-section">
           <div class="query-input">
@@ -479,68 +588,9 @@ ORDER BY p.price DESC;"
           </div>
         </div>
 
-        <!-- Connection Toggle Button -->
-        <div style="text-align: center; margin-bottom: 20px;">
-          <button class="connection-toggle" id="connectionToggle" onclick="toggleConnectionSection()">
-            Hide Connection Section
-          </button>
-        </div>
-
-        <!-- Top Section: Connection and Status -->
-        <div class="top-section" id="topSection">
-          <div class="connection-form">
-            <h3>
-              <span
-                id="connectionStatus"
-                class="connection-status disconnected"
-              ></span
-              >Database Connection
-            </h3>
-            <div class="form-group">
-              <label for="host">Host:</label>
-              <input
-                type="text"
-                id="host"
-                placeholder="your-endpoint.neon.tech"
-                value=""
-              />
-            </div>
-            <div class="form-group">
-              <label for="database">Database:</label>
-              <input
-                type="text"
-                id="database"
-                placeholder="neondb"
-                value="neondb"
-              />
-            </div>
-            <div class="form-group">
-              <label for="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                placeholder="your-username"
-                value=""
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="your-password"
-                value=""
-              />
-            </div>
-            <button class="btn-connect" onclick="connectToDatabase()">
-              <span id="connectText">Connect to Database</span>
-            </button>
-          </div>
-
-          <div class="results-section">
-            <div id="statusMessage" class="status info">
-              👋 Welcome! Connect to your Neon database and start querying.
-            </div>
+        <div class="results-section">
+          <div id="statusMessage" class="status info">
+            👋 Welcome! Connect to your Neon database and start querying.
           </div>
         </div>
 
@@ -957,7 +1007,7 @@ ORDER BY month;`,
       function toggleConnectionSection() {
         const topSection = document.getElementById("topSection");
         const toggleButton = document.getElementById("connectionToggle");
-        
+
         if (topSection.classList.contains("hidden")) {
           topSection.classList.remove("hidden");
           toggleButton.textContent = "Hide Connection Section";
@@ -967,16 +1017,30 @@ ORDER BY month;`,
         }
       }
 
+      function toggleERDiagram() {
+        const erContainer = document.getElementById("erDiagramContainer");
+        const toggleButton = document.getElementById("erDiagramToggle");
+
+        if (erContainer.classList.contains("visible")) {
+          erContainer.classList.remove("visible");
+          toggleButton.textContent = "Show ER Diagram";
+        } else {
+          erContainer.classList.add("visible");
+          toggleButton.textContent = "Hide ER Diagram";
+        }
+      }
+
       // Load default configuration
       async function loadDefaultConfig() {
         try {
           const response = await fetch(`${API_BASE}/config`);
           const config = await response.json();
-          
+
           document.getElementById("host").value = config.host || "";
-          document.getElementById("database").value = config.database || "neondb";
+          document.getElementById("database").value =
+            config.database || "neondb";
           document.getElementById("username").value = config.username || "";
-          
+
           console.log("Default configuration loaded");
         } catch (error) {
           console.error("Failed to load default configuration:", error);
@@ -987,12 +1051,12 @@ ORDER BY month;`,
       async function autoConnect() {
         try {
           showStatus("🔄 Auto-connecting to database...", "info");
-          
+
           const response = await fetch(`${API_BASE}/auto-connect`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-            }
+            },
           });
 
           const result = await response.json();
@@ -1001,19 +1065,25 @@ ORDER BY month;`,
             isConnected = true;
             connectionId = result.connectionId;
 
-            document.getElementById("connectionStatus").className = "connection-status connected";
-            showStatus(`✅ Auto-connected to ${result.serverInfo.database} successfully!`, "success");
+            document.getElementById("connectionStatus").className =
+              "connection-status connected";
+            showStatus(
+              `✅ Auto-connected to ${result.serverInfo.database} successfully!`,
+              "success"
+            );
 
             // Update connect button
             const connectBtn = document.querySelector(".btn-connect");
             const connectText = document.getElementById("connectText");
             connectText.textContent = "Connected ✓";
-            connectBtn.style.background = "linear-gradient(135deg, #28a745 0%, #20c997 100%)";
+            connectBtn.style.background =
+              "linear-gradient(135deg, #28a745 0%, #20c997 100%)";
 
             // Hide connection form after successful auto-connect
             document.getElementById("topSection").classList.add("hidden");
             document.getElementById("connectionToggle").style.display = "block";
-            document.getElementById("connectionToggle").textContent = "Show Connection Section";
+            document.getElementById("connectionToggle").textContent =
+              "Show Connection Section";
 
             // Load schema information
             await loadSchema();
@@ -1022,26 +1092,27 @@ ORDER BY month;`,
           }
         } catch (error) {
           console.error("Auto-connect error:", error);
-          showStatus(`ℹ️ Auto-connect failed: ${error.message}. Please use manual connection.`, "info");
-          
+          showStatus(
+            `ℹ️ Auto-connect failed: ${error.message}. Please use manual connection.`,
+            "info"
+          );
+
           // Ensure connection form is visible if auto-connect fails
           document.getElementById("topSection").classList.remove("hidden");
-          document.getElementById("connectionToggle").textContent = "Hide Connection Section";
+          document.getElementById("connectionToggle").textContent =
+            "Hide Connection Section";
         }
       }
 
       // Initialize with a welcome message and load config
-      showStatus(
-        "🔄 Initializing application...",
-        "info"
-      );
-      
+      showStatus("🔄 Initializing application...", "info");
+
       // Load default configuration and attempt auto-connect
       async function initializeApp() {
         await loadDefaultConfig();
         await autoConnect();
       }
-      
+
       // Initialize on page load
       initializeApp();
     </script>
