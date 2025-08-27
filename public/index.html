@@ -390,6 +390,10 @@
         display: none;
       }
 
+      .top-section.hidden {
+        display: none;
+      }
+
       .loading {
         display: inline-block;
         width: 20px;
@@ -475,8 +479,15 @@ ORDER BY p.price DESC;"
           </div>
         </div>
 
+        <!-- Connection Toggle Button -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="connection-toggle" id="connectionToggle" onclick="toggleConnectionSection()">
+            Hide Connection Section
+          </button>
+        </div>
+
         <!-- Top Section: Connection and Status -->
-        <div class="top-section">
+        <div class="top-section" id="topSection">
           <div class="connection-form">
             <h3>
               <span
@@ -941,6 +952,19 @@ ORDER BY month;`,
 
       function clearQuery() {
         document.getElementById("sqlQuery").value = "";
+      }
+
+      function toggleConnectionSection() {
+        const topSection = document.getElementById("topSection");
+        const toggleButton = document.getElementById("connectionToggle");
+        
+        if (topSection.classList.contains("hidden")) {
+          topSection.classList.remove("hidden");
+          toggleButton.textContent = "Hide Connection Section";
+        } else {
+          topSection.classList.add("hidden");
+          toggleButton.textContent = "Show Connection Section";
+        }
       }
 
       // Initialize with a welcome message
