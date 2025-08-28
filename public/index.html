@@ -967,7 +967,7 @@ ORDER BY month;`,
               value = value.toFixed(2);
             }
             if (value === null || value === undefined) {
-              value = '<em style="color: #999;">NULL</em>';
+              value = `<em style='color: #999;'>NULL</em>`;
             }
             if (typeof value === "string" && value.length > 50) {
               // Show preview with title containing full value
