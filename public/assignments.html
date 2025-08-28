@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Assignments - E-commerce Database</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .difficulty-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            border: 2px solid #dee2e6;
+            background: white;
+            color: #495057;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .difficulty-btn.active,
+        .difficulty-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .assignment {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-left: 5px solid #4facfe;
+        }
+
+        .assignment.medium {
+            border-left-color: #ffa726;
+        }
+
+        .assignment.hard {
+            border-left-color: #ef5350;
+        }
+
+        .assignment-header {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .assignment-header:hover {
+            background: #e9ecef;
+        }
+
+        .assignment-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .difficulty-badge.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-badge.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-badge.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .assignment-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .assignment-content.visible {
+            display: block;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .show-answer-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .show-answer-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+
+        .answer.visible {
+            display: block;
+        }
+
+        .answer pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .stats {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 15px;
+            }
+            
+            .difficulty-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SQL Assignments</h1>
+            <p>Practice SQL queries with the E-commerce Database</p>
+        </div>
+
+        <div class="content">
+            <a href="index.html" class="back-link">&larr; Back to Query Interface</a>
+            
+            <div class="stats">
+                <strong>📚 Total Assignments: <span id="totalCount">20</span></strong> | 
+                Easy: <span id="easyCount">8</span> | 
+                Medium: <span id="mediumCount">8</span> | 
+                Hard: <span id="hardCount">4</span>
+            </div>
+
+            <div class="difficulty-nav">
+                <button class="difficulty-btn active" onclick="filterByDifficulty('all')">All</button>
+                <button class="difficulty-btn" onclick="filterByDifficulty('easy')">Easy</button>
+                <button class="difficulty-btn" onclick="filterByDifficulty('medium')">Medium</button>
+                <button class="difficulty-btn" onclick="filterByDifficulty('hard')">Hard</button>
+            </div>
+
+            <div id="assignments">
+                <!-- Easy Assignments -->
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">1</span>
+                        List all products
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Write a query to display all products with their names, prices, and stock quantities.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price, stock_quantity
+FROM products;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">2</span>
+                        Find products under $20
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find all products that cost less than $20.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price
+FROM products
+WHERE price < 20;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">3</span>
+                        Count total customers
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Count the total number of customers in the database.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT COUNT(*) as total_customers
+FROM customers;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">4</span>
+                        List all categories
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Display all product categories.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT category_name
+FROM categories;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">5</span>
+                        Find most expensive product
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find the product with the highest price.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price
+FROM products
+ORDER BY price DESC
+LIMIT 1;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">6</span>
+                        Products with low stock
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products with stock quantity less than 10.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, stock_quantity
+FROM products
+WHERE stock_quantity < 10;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">7</span>
+                        Customer emails
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            List all customer names and their email addresses.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT first_name, last_name, email
+FROM customers;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">8</span>
+                        Orders from specific year
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find all orders placed in 2024.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT order_id, customer_id, order_date, total_amount
+FROM orders
+WHERE EXTRACT(YEAR FROM order_date) = 2024;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Assignments -->
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">9</span>
+                        Products with categories
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Display products along with their category names using a JOIN.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT p.product_name, p.price, c.category_name
+FROM products p
+JOIN categories c ON p.category_id = c.category_id;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">10</span>
+                        Customer order count
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Count how many orders each customer has made.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT c.first_name, c.last_name, COUNT(o.order_id) as order_count
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">11</span>
+                        Average product price by category
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate the average price of products in each category.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT c.category_name, AVG(p.price) as avg_price
+FROM categories c
+JOIN products p ON c.category_id = p.category_id
+GROUP BY c.category_id, c.category_name;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">12</span>
+                        Top 5 customers by spending
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find the top 5 customers who have spent the most money.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT c.first_name, c.last_name, SUM(o.total_amount) as total_spent
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC
+LIMIT 5;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">13</span>
+                        Products never ordered
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products that have never been ordered.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT p.product_name
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+WHERE oi.product_id IS NULL;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">14</span>
+                        Monthly sales report
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Generate a monthly sales report showing total revenue per month.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    EXTRACT(YEAR FROM order_date) as year,
+    EXTRACT(MONTH FROM order_date) as month,
+    SUM(total_amount) as monthly_revenue
+FROM orders
+GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)
+ORDER BY year, month;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">15</span>
+                        Products in multiple orders
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products that appear in more than 3 orders.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT p.product_name, COUNT(DISTINCT oi.order_id) as order_count
+FROM products p
+JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name
+HAVING COUNT(DISTINCT oi.order_id) > 3;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">16</span>
+                        Customer order details
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Show customer name, order date, and total amount for all orders.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    o.order_date,
+    o.total_amount
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+ORDER BY o.order_date DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hard Assignments -->
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">17</span>
+                        Customer lifetime value ranking
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Rank customers by their lifetime value and show their spending rank within their registration year.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    EXTRACT(YEAR FROM c.created_at) as registration_year,
+    SUM(o.total_amount) as lifetime_value,
+    RANK() OVER (ORDER BY SUM(o.total_amount) DESC) as overall_rank,
+    RANK() OVER (
+        PARTITION BY EXTRACT(YEAR FROM c.created_at) 
+        ORDER BY SUM(o.total_amount) DESC
+    ) as yearly_rank
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name, c.created_at
+ORDER BY lifetime_value DESC NULLS LAST;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">18</span>
+                        Sales growth analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate month-over-month sales growth percentage using window functions.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH monthly_sales AS (
+    SELECT 
+        DATE_TRUNC('month', order_date) as month,
+        SUM(total_amount) as revenue
+    FROM orders 
+    GROUP BY DATE_TRUNC('month', order_date)
+)
+SELECT 
+    month,
+    revenue,
+    LAG(revenue) OVER (ORDER BY month) as prev_month_revenue,
+    ROUND(
+        ((revenue - LAG(revenue) OVER (ORDER BY month)) / 
+         NULLIF(LAG(revenue) OVER (ORDER BY month), 0) * 100)::numeric, 2
+    ) as growth_percentage
+FROM monthly_sales
+ORDER BY month;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">19</span>
+                        Product recommendation analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products frequently bought together (products that appear in the same order).
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    p1.product_name as product_1,
+    p2.product_name as product_2,
+    COUNT(*) as times_bought_together,
+    ROUND(
+        COUNT(*) * 100.0 / (
+            SELECT COUNT(DISTINCT order_id) FROM order_items 
+            WHERE product_id = p1.product_id
+        ), 2
+    ) as correlation_percentage
+FROM order_items oi1
+JOIN order_items oi2 ON oi1.order_id = oi2.order_id AND oi1.product_id < oi2.product_id
+JOIN products p1 ON oi1.product_id = p1.product_id
+JOIN products p2 ON oi2.product_id = p2.product_id
+GROUP BY p1.product_id, p1.product_name, p2.product_id, p2.product_name
+HAVING COUNT(*) >= 2
+ORDER BY times_bought_together DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">20</span>
+                        Customer segmentation analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Segment customers into categories (High Value, Medium Value, Low Value, Inactive) based on their purchase behavior.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_metrics AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        COALESCE(SUM(o.total_amount), 0) as total_spent,
+        COUNT(o.order_id) as order_count,
+        MAX(o.order_date) as last_order_date,
+        AVG(o.total_amount) as avg_order_value
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.first_name, c.last_name
+),
+customer_percentiles AS (
+    SELECT *,
+        NTILE(4) OVER (ORDER BY total_spent) as spending_quartile,
+        NTILE(4) OVER (ORDER BY order_count) as frequency_quartile
+    FROM customer_metrics
+)
+SELECT 
+    customer_name,
+    total_spent,
+    order_count,
+    avg_order_value,
+    last_order_date,
+    CASE 
+        WHEN total_spent = 0 THEN 'Inactive'
+        WHEN spending_quartile = 4 AND frequency_quartile >= 3 THEN 'High Value'
+        WHEN spending_quartile >= 3 OR frequency_quartile >= 3 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END as customer_segment
+FROM customer_percentiles
+ORDER BY total_spent DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAssignment(header) {
+            const content = header.nextElementSibling;
+            const isVisible = content.classList.contains('visible');
+            
+            // Close all other assignments
+            document.querySelectorAll('.assignment-content').forEach(c => {
+                c.classList.remove('visible');
+            });
+            
+            // Toggle current assignment
+            if (!isVisible) {
+                content.classList.add('visible');
+            }
+        }
+
+        function toggleAnswer(button) {
+            const answer = button.nextElementSibling;
+            if (answer.classList.contains('visible')) {
+                answer.classList.remove('visible');
+                button.textContent = 'Show Answer';
+            } else {
+                answer.classList.add('visible');
+                button.textContent = 'Hide Answer';
+            }
+        }
+
+        function filterByDifficulty(difficulty) {
+            // Update active button
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show/hide assignments
+            const assignments = document.querySelectorAll('.assignment');
+            assignments.forEach(assignment => {
+                if (difficulty === 'all' || assignment.dataset.difficulty === difficulty) {
+                    assignment.style.display = 'block';
+                } else {
+                    assignment.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

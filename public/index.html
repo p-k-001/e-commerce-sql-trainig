@@ -467,6 +467,12 @@
           >
             Show ER Diagram
           </button>
+          <button
+            class="connection-toggle"
+            onclick="openAssignments()"
+          >
+            📚 SQL Assignments
+          </button>
         </div>
 
         <!-- ER Diagram Container -->
@@ -1028,6 +1034,10 @@ ORDER BY month;`,
           erContainer.classList.add("visible");
           toggleButton.textContent = "Hide ER Diagram";
         }
+      }
+
+      function openAssignments() {
+        window.open("assignments.html", "_blank");
       }
 
       // Load default configuration
