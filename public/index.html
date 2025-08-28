@@ -792,12 +792,29 @@ ORDER BY month;`,
           if (result.success) {
             displayResults(result.data, query);
           } else {
-            showStatus(`❌ Query Error: ${result.error}`, "error");
+            // Display the actual database error from the server
+            let errorMessage = result.error || "Unknown error occurred";
+            
+            // Add additional error details if available
+            if (result.errorCode) {
+              errorMessage += ` (Code: ${result.errorCode})`;
+            }
+            if (result.position) {
+              errorMessage += ` at position ${result.position}`;
+            }
+            
+            showStatus(`❌ ${errorMessage}`, "error");
             console.error("Query error details:", result);
           }
         } catch (error) {
           console.error("Query execution error:", error);
-          showStatus(`❌ Network error: ${error.message}`, "error");
+          
+          // Check if it's a fetch/network error
+          if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            showStatus(`❌ Connection error: Unable to reach the database server`, "error");
+          } else {
+            showStatus(`❌ Network error: ${error.message}`, "error");
+          }
         } finally {
           executeBtn.textContent = originalText;
           executeBtn.disabled = false;

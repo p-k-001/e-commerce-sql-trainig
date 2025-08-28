@@ -160,8 +160,9 @@ app.post("/api/connect", async (req, res) => {
 
 // Execute SQL query
 app.post("/api/query", async (req, res) => {
+  const { connectionId, query } = req.body;
+  
   try {
-    const { connectionId, query } = req.body;
 
     if (!connectionId || !query) {
       return res.status(400).json({
