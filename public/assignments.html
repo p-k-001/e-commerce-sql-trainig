@@ -236,10 +236,10 @@
             <a href="index.html" class="back-link">&larr; Back to Query Interface</a>
             
             <div class="stats">
-                <strong>📚 Total Assignments: <span id="totalCount">20</span></strong> | 
-                Easy: <span id="easyCount">8</span> | 
-                Medium: <span id="mediumCount">8</span> | 
-                Hard: <span id="hardCount">4</span>
+                <strong>📚 Total Assignments: <span id="totalCount">70</span></strong> | 
+                Easy: <span id="easyCount">20</span> | 
+                Medium: <span id="mediumCount">30</span> | 
+                Hard: <span id="hardCount">20</span>
             </div>
 
             <div class="difficulty-nav">
@@ -250,7 +250,7 @@
             </div>
 
             <div id="assignments">
-                <!-- Easy Assignments -->
+                <!-- Easy Assignments (1-20) -->
                 <div class="assignment easy" data-difficulty="easy">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
                         <span class="assignment-number">1</span>
@@ -400,10 +400,237 @@ WHERE EXTRACT(YEAR FROM order_date) = 2024;</pre>
                     </div>
                 </div>
 
-                <!-- Medium Assignments -->
-                <div class="assignment medium" data-difficulty="medium">
+                <div class="assignment easy" data-difficulty="easy">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
                         <span class="assignment-number">9</span>
+                        Products in stock
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find all products that are currently in stock (stock_quantity > 0).
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, stock_quantity
+FROM products
+WHERE stock_quantity > 0;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">10</span>
+                        Sort products by price
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            List all products sorted by price in ascending order.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price
+FROM products
+ORDER BY price ASC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">11</span>
+                        Count products per category
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Count how many products exist in each category.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT c.category_name, COUNT(p.product_id) as product_count
+FROM categories c
+LEFT JOIN products p ON c.category_id = p.category_id
+GROUP BY c.category_id, c.category_name;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">12</span>
+                        Find customers by name pattern
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find all customers whose first name starts with 'J'.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT first_name, last_name, email
+FROM customers
+WHERE first_name LIKE 'J%';</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">13</span>
+                        Orders by total amount
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            List all orders with total amount greater than $100.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT order_id, customer_id, order_date, total_amount
+FROM orders
+WHERE total_amount > 100;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">14</span>
+                        Recent orders
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find the 10 most recent orders.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT order_id, customer_id, order_date, total_amount
+FROM orders
+ORDER BY order_date DESC
+LIMIT 10;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">15</span>
+                        Product price range
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products with price between $10 and $50.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price
+FROM products
+WHERE price BETWEEN 10 AND 50;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">16</span>
+                        Unique customer cities
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            List all unique cities where customers live.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT DISTINCT city
+FROM customers
+ORDER BY city;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">17</span>
+                        Products without description
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products that have no description (NULL or empty).
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, description
+FROM products
+WHERE description IS NULL OR description = '';</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">18</span>
+                        Order count total
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Count the total number of orders in the database.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT COUNT(*) as total_orders
+FROM orders;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">19</span>
+                        Average product price
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate the average price of all products.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT AVG(price) as average_price
+FROM products;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment easy" data-difficulty="easy">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">20</span>
+                        Customer full names
+                        <span class="difficulty-badge easy">Easy</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Display customer full names (first_name + last_name) and emails.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT first_name || ' ' || last_name as full_name, email
+FROM customers;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Assignments (21-50) -->
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">21</span>
                         Products with categories
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -422,7 +649,7 @@ JOIN categories c ON p.category_id = c.category_id;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">10</span>
+                        <span class="assignment-number">22</span>
                         Customer order count
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -442,7 +669,7 @@ GROUP BY c.customer_id, c.first_name, c.last_name;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">11</span>
+                        <span class="assignment-number">23</span>
                         Average product price by category
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -462,7 +689,7 @@ GROUP BY c.category_id, c.category_name;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">12</span>
+                        <span class="assignment-number">24</span>
                         Top 5 customers by spending
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -484,7 +711,7 @@ LIMIT 5;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">13</span>
+                        <span class="assignment-number">25</span>
                         Products never ordered
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -504,7 +731,7 @@ WHERE oi.product_id IS NULL;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">14</span>
+                        <span class="assignment-number">26</span>
                         Monthly sales report
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -527,7 +754,7 @@ ORDER BY year, month;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">15</span>
+                        <span class="assignment-number">27</span>
                         Products in multiple orders
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -548,7 +775,7 @@ HAVING COUNT(DISTINCT oi.order_id) > 3;</pre>
 
                 <div class="assignment medium" data-difficulty="medium">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">16</span>
+                        <span class="assignment-number">28</span>
                         Customer order details
                         <span class="difficulty-badge medium">Medium</span>
                     </div>
@@ -569,10 +796,607 @@ ORDER BY o.order_date DESC;</pre>
                     </div>
                 </div>
 
-                <!-- Hard Assignments -->
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">29</span>
+                        Customer order summary
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Show each customer's total spending, order count, and average order value.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    COUNT(o.order_id) as total_orders,
+    COALESCE(SUM(o.total_amount), 0) as total_spent,
+    COALESCE(AVG(o.total_amount), 0) as avg_order_value
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">30</span>
+                        Products sold quantity
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find total quantity sold for each product.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    p.product_name,
+    COALESCE(SUM(oi.quantity), 0) as total_sold
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name
+ORDER BY total_sold DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">31</span>
+                        Category revenue analysis
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate total revenue and average order value by category.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.category_name,
+    SUM(oi.total_price) as category_revenue,
+    COUNT(DISTINCT oi.order_id) as orders_count,
+    AVG(oi.total_price) as avg_item_value
+FROM categories c
+JOIN products p ON c.category_id = p.category_id
+JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY c.category_id, c.category_name
+ORDER BY category_revenue DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">32</span>
+                        Customers without orders
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find customers who have never placed an order.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT c.first_name, c.last_name, c.email
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">33</span>
+                        Order items with product details
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Show order items with product names, quantities, and line totals.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    oi.order_id,
+    p.product_name,
+    oi.quantity,
+    oi.unit_price,
+    oi.total_price as line_total
+FROM order_items oi
+JOIN products p ON oi.product_id = p.product_id
+ORDER BY oi.order_id, p.product_name;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">34</span>
+                        High value orders
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find orders above average order value with customer names.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    o.order_id,
+    o.order_date,
+    o.total_amount
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE o.total_amount > (SELECT AVG(total_amount) FROM orders)
+ORDER BY o.total_amount DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">35</span>
+                        Product performance ranking
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Rank products by total revenue generated using ROW_NUMBER().
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    ROW_NUMBER() OVER (ORDER BY SUM(oi.total_price) DESC) as rank,
+    p.product_name,
+    SUM(oi.total_price) as total_revenue,
+    COUNT(oi.order_id) as times_ordered
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name
+ORDER BY total_revenue DESC NULLS LAST;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">36</span>
+                        Daily order statistics
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Show daily order count and total revenue for the last 7 days.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    DATE(order_date) as order_day,
+    COUNT(*) as daily_orders,
+    SUM(total_amount) as daily_revenue
+FROM orders
+WHERE order_date >= CURRENT_DATE - INTERVAL '7 days'
+GROUP BY DATE(order_date)
+ORDER BY order_day DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">37</span>
+                        Category stock analysis
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate total stock value and average price per category.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.category_name,
+    COUNT(p.product_id) as product_count,
+    SUM(p.stock_quantity * p.price) as total_stock_value,
+    AVG(p.price) as avg_price,
+    SUM(p.stock_quantity) as total_units
+FROM categories c
+LEFT JOIN products p ON c.category_id = p.category_id
+GROUP BY c.category_id, c.category_name
+ORDER BY total_stock_value DESC NULLS LAST;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">38</span>
+                        Customer order frequency
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find customers and their average days between orders.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_orders AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        o.order_date,
+        LAG(o.order_date) OVER (
+            PARTITION BY c.customer_id 
+            ORDER BY o.order_date
+        ) as prev_order_date
+    FROM customers c
+    JOIN orders o ON c.customer_id = o.customer_id
+)
+SELECT 
+    customer_name,
+    COUNT(*) as total_orders,
+    AVG(order_date - prev_order_date) as avg_days_between_orders
+FROM customer_orders
+WHERE prev_order_date IS NOT NULL
+GROUP BY customer_id, customer_name
+HAVING COUNT(*) > 1
+ORDER BY avg_days_between_orders;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">39</span>
+                        Product inventory turnover
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate inventory turnover ratio (sold quantity / current stock).
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    p.product_name,
+    p.stock_quantity as current_stock,
+    COALESCE(SUM(oi.quantity), 0) as total_sold,
+    CASE 
+        WHEN p.stock_quantity > 0 
+        THEN ROUND(COALESCE(SUM(oi.quantity), 0)::numeric / p.stock_quantity, 2)
+        ELSE 0 
+    END as turnover_ratio
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name, p.stock_quantity
+ORDER BY turnover_ratio DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">40</span>
+                        Order size distribution
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Categorize orders by size (Small: <$50, Medium: $50-$200, Large: >$200).
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    CASE 
+        WHEN total_amount < 50 THEN 'Small'
+        WHEN total_amount BETWEEN 50 AND 200 THEN 'Medium'
+        ELSE 'Large'
+    END as order_size,
+    COUNT(*) as order_count,
+    AVG(total_amount) as avg_amount,
+    SUM(total_amount) as total_revenue
+FROM orders
+GROUP BY 
+    CASE 
+        WHEN total_amount < 50 THEN 'Small'
+        WHEN total_amount BETWEEN 50 AND 200 THEN 'Medium'
+        ELSE 'Large'
+    END
+ORDER BY 
+    CASE 
+        WHEN order_size = 'Small' THEN 1
+        WHEN order_size = 'Medium' THEN 2
+        ELSE 3
+    END;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">41</span>
+                        Cross-category purchases
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find customers who bought products from at least 3 different categories.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    COUNT(DISTINCT cat.category_id) as categories_purchased
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+JOIN categories cat ON p.category_id = cat.category_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+HAVING COUNT(DISTINCT cat.category_id) >= 3
+ORDER BY categories_purchased DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">42</span>
+                        Seasonal sales pattern
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Analyze sales by quarter to identify seasonal patterns.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    EXTRACT(YEAR FROM order_date) as year,
+    EXTRACT(QUARTER FROM order_date) as quarter,
+    COUNT(*) as order_count,
+    SUM(total_amount) as revenue,
+    AVG(total_amount) as avg_order_value
+FROM orders
+GROUP BY 
+    EXTRACT(YEAR FROM order_date),
+    EXTRACT(QUARTER FROM order_date)
+ORDER BY year, quarter;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">43</span>
+                        Product margin analysis
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate profit margin assuming cost is 60% of selling price.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    p.product_name,
+    p.price as selling_price,
+    p.price * 0.6 as estimated_cost,
+    p.price * 0.4 as profit_per_unit,
+    COALESCE(SUM(oi.quantity), 0) as units_sold,
+    COALESCE(SUM(oi.quantity), 0) * p.price * 0.4 as total_profit
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name, p.price
+ORDER BY total_profit DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">44</span>
+                        Customer purchase patterns
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find customers' most frequently purchased category.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_category_counts AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        cat.category_name,
+        COUNT(*) as purchase_count,
+        ROW_NUMBER() OVER (
+            PARTITION BY c.customer_id 
+            ORDER BY COUNT(*) DESC
+        ) as rank
+    FROM customers c
+    JOIN orders o ON c.customer_id = o.customer_id
+    JOIN order_items oi ON o.order_id = oi.order_id
+    JOIN products p ON oi.product_id = p.product_id
+    JOIN categories cat ON p.category_id = cat.category_id
+    GROUP BY c.customer_id, c.first_name, c.last_name, cat.category_name
+)
+SELECT customer_name, category_name, purchase_count
+FROM customer_category_counts
+WHERE rank = 1
+ORDER BY customer_name;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">45</span>
+                        Weekly sales trend
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Show sales performance by day of week.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    EXTRACT(DOW FROM order_date) as day_number,
+    TO_CHAR(order_date, 'Day') as day_name,
+    COUNT(*) as order_count,
+    SUM(total_amount) as daily_revenue,
+    AVG(total_amount) as avg_order_value
+FROM orders
+GROUP BY EXTRACT(DOW FROM order_date), TO_CHAR(order_date, 'Day')
+ORDER BY day_number;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">46</span>
+                        Order completion analysis
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate average items per order and order completion rate by customer.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    COUNT(DISTINCT o.order_id) as total_orders,
+    COUNT(oi.order_item_id) as total_items,
+    ROUND(COUNT(oi.order_item_id)::numeric / COUNT(DISTINCT o.order_id), 2) as avg_items_per_order,
+    SUM(o.total_amount) as total_spent
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+LEFT JOIN order_items oi ON o.order_id = oi.order_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY avg_items_per_order DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">47</span>
+                        Price point analysis
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Group products by price ranges and analyze sales performance.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    CASE 
+        WHEN p.price < 10 THEN 'Under $10'
+        WHEN p.price BETWEEN 10 AND 25 THEN '$10-$25'
+        WHEN p.price BETWEEN 25 AND 50 THEN '$25-$50'
+        WHEN p.price BETWEEN 50 AND 100 THEN '$50-$100'
+        ELSE 'Over $100'
+    END as price_range,
+    COUNT(p.product_id) as product_count,
+    COALESCE(SUM(oi.quantity), 0) as total_sold,
+    COALESCE(SUM(oi.total_price), 0) as revenue
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY 
+    CASE 
+        WHEN p.price < 10 THEN 'Under $10'
+        WHEN p.price BETWEEN 10 AND 25 THEN '$10-$25'
+        WHEN p.price BETWEEN 25 AND 50 THEN '$25-$50'
+        WHEN p.price BETWEEN 50 AND 100 THEN '$50-$100'
+        ELSE 'Over $100'
+    END
+ORDER BY revenue DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">48</span>
+                        Repeat customer identification
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Identify repeat customers and their loyalty metrics.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT 
+    c.first_name || ' ' || c.last_name as customer_name,
+    COUNT(o.order_id) as order_count,
+    MIN(o.order_date) as first_order,
+    MAX(o.order_date) as last_order,
+    MAX(o.order_date) - MIN(o.order_date) as customer_lifetime_days,
+    SUM(o.total_amount) as total_spent,
+    AVG(o.total_amount) as avg_order_value
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+HAVING COUNT(o.order_id) > 1
+ORDER BY order_count DESC, total_spent DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">49</span>
+                        Total revenue
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate the total revenue from all orders.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT SUM(total_amount) as total_revenue
+FROM orders;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment medium" data-difficulty="medium">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">50</span>
+                        Products with high stock
+                        <span class="difficulty-badge medium">Medium</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products with stock quantity greater than 50.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, stock_quantity
+FROM products
+WHERE stock_quantity > 50;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hard Assignments (51-70) -->
                 <div class="assignment hard" data-difficulty="hard">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">17</span>
+                        <span class="assignment-number">51</span>
                         Customer lifetime value ranking
                         <span class="difficulty-badge hard">Hard</span>
                     </div>
@@ -601,7 +1425,7 @@ ORDER BY lifetime_value DESC NULLS LAST;</pre>
 
                 <div class="assignment hard" data-difficulty="hard">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">18</span>
+                        <span class="assignment-number">52</span>
                         Sales growth analysis
                         <span class="difficulty-badge hard">Hard</span>
                     </div>
@@ -634,7 +1458,7 @@ ORDER BY month;</pre>
 
                 <div class="assignment hard" data-difficulty="hard">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">19</span>
+                        <span class="assignment-number">53</span>
                         Product recommendation analysis
                         <span class="difficulty-badge hard">Hard</span>
                     </div>
@@ -667,7 +1491,7 @@ ORDER BY times_bought_together DESC;</pre>
 
                 <div class="assignment hard" data-difficulty="hard">
                     <div class="assignment-header" onclick="toggleAssignment(this)">
-                        <span class="assignment-number">20</span>
+                        <span class="assignment-number">54</span>
                         Customer segmentation analysis
                         <span class="difficulty-badge hard">Hard</span>
                     </div>
@@ -712,6 +1536,857 @@ ORDER BY total_spent DESC;</pre>
                         </div>
                     </div>
                 </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">55</span>
+                        Customer churn prediction
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Identify customers at risk of churning (no orders in last 90 days) with their historical value.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_metrics AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        c.created_at as registration_date,
+        COUNT(o.order_id) as total_orders,
+        COALESCE(SUM(o.total_amount), 0) as lifetime_value,
+        MAX(o.order_date) as last_order_date,
+        AVG(o.total_amount) as avg_order_value,
+        CURRENT_DATE - MAX(o.order_date) as days_since_last_order
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.first_name, c.last_name, c.created_at
+)
+SELECT 
+    customer_name,
+    total_orders,
+    lifetime_value,
+    last_order_date,
+    days_since_last_order,
+    CASE 
+        WHEN days_since_last_order > 180 THEN 'High Risk'
+        WHEN days_since_last_order > 90 THEN 'Medium Risk'
+        WHEN days_since_last_order > 30 THEN 'Low Risk'
+        ELSE 'Active'
+    END as churn_risk,
+    RANK() OVER (ORDER BY lifetime_value DESC) as value_rank
+FROM customer_metrics
+WHERE total_orders > 0
+ORDER BY 
+    CASE 
+        WHEN days_since_last_order > 180 THEN 1
+        WHEN days_since_last_order > 90 THEN 2
+        WHEN days_since_last_order > 30 THEN 3
+        ELSE 4
+    END,
+    lifetime_value DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">56</span>
+                        Market basket analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Advanced market basket analysis with support and confidence metrics.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH product_pairs AS (
+    SELECT 
+        p1.product_name as product_a,
+        p2.product_name as product_b,
+        COUNT(*) as co_occurrence_count
+    FROM order_items oi1
+    JOIN order_items oi2 ON oi1.order_id = oi2.order_id 
+        AND oi1.product_id < oi2.product_id
+    JOIN products p1 ON oi1.product_id = p1.product_id
+    JOIN products p2 ON oi2.product_id = p2.product_id
+    GROUP BY p1.product_id, p1.product_name, p2.product_id, p2.product_name
+),
+product_totals AS (
+    SELECT 
+        p.product_name,
+        COUNT(DISTINCT oi.order_id) as total_orders
+    FROM products p
+    JOIN order_items oi ON p.product_id = oi.product_id
+    GROUP BY p.product_id, p.product_name
+),
+total_orders_count AS (
+    SELECT COUNT(DISTINCT order_id) as total_orders FROM orders
+)
+SELECT 
+    pp.product_a,
+    pp.product_b,
+    pp.co_occurrence_count,
+    ROUND(pp.co_occurrence_count * 100.0 / toc.total_orders, 2) as support,
+    ROUND(pp.co_occurrence_count * 100.0 / pt1.total_orders, 2) as confidence_a_to_b,
+    ROUND(pp.co_occurrence_count * 100.0 / pt2.total_orders, 2) as confidence_b_to_a
+FROM product_pairs pp
+JOIN product_totals pt1 ON pp.product_a = pt1.product_name
+JOIN product_totals pt2 ON pp.product_b = pt2.product_name
+CROSS JOIN total_orders_count toc
+WHERE pp.co_occurrence_count >= 2
+ORDER BY support DESC, confidence_a_to_b DESC
+LIMIT 20;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">57</span>
+                        Customer cohort analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Perform cohort analysis based on customer registration month.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_cohorts AS (
+    SELECT 
+        c.customer_id,
+        DATE_TRUNC('month', c.created_at) as cohort_month,
+        DATE_TRUNC('month', o.order_date) as order_month
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+),
+cohort_data AS (
+    SELECT 
+        cohort_month,
+        order_month,
+        COUNT(DISTINCT customer_id) as customers
+    FROM customer_cohorts
+    WHERE order_month IS NOT NULL
+    GROUP BY cohort_month, order_month
+),
+cohort_sizes AS (
+    SELECT 
+        cohort_month,
+        COUNT(DISTINCT customer_id) as cohort_size
+    FROM customers
+    GROUP BY DATE_TRUNC('month', created_at)
+)
+SELECT 
+    cd.cohort_month,
+    cd.order_month,
+    EXTRACT(EPOCH FROM cd.order_month - cd.cohort_month) / (30.44 * 24 * 3600) as months_since_registration,
+    cd.customers,
+    cs.cohort_size,
+    ROUND(cd.customers * 100.0 / cs.cohort_size, 2) as retention_rate
+FROM cohort_data cd
+JOIN cohort_sizes cs ON cd.cohort_month = cs.cohort_month
+WHERE cd.order_month >= cd.cohort_month
+ORDER BY cd.cohort_month, cd.order_month;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">58</span>
+                        Revenue forecasting with trend analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Create a revenue forecast using moving averages and trend analysis.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH monthly_revenue AS (
+    SELECT 
+        DATE_TRUNC('month', order_date) as month,
+        SUM(total_amount) as revenue
+    FROM orders 
+    GROUP BY DATE_TRUNC('month', order_date)
+),
+revenue_with_trends AS (
+    SELECT 
+        month,
+        revenue,
+        LAG(revenue, 1) OVER (ORDER BY month) as prev_month,
+        LAG(revenue, 2) OVER (ORDER BY month) as prev_2_month,
+        LAG(revenue, 3) OVER (ORDER BY month) as prev_3_month,
+        AVG(revenue) OVER (
+            ORDER BY month 
+            ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+        ) as moving_avg_3m,
+        ROW_NUMBER() OVER (ORDER BY month) as month_number
+    FROM monthly_revenue
+)
+SELECT 
+    month,
+    revenue,
+    moving_avg_3m,
+    CASE 
+        WHEN prev_month IS NOT NULL 
+        THEN ROUND(((revenue - prev_month) / prev_month * 100)::numeric, 2) 
+    END as mom_growth,
+    -- Simple linear trend calculation
+    ROUND((revenue - moving_avg_3m)::numeric, 2) as deviation_from_trend,
+    -- Forecast next month using trend
+    CASE 
+        WHEN prev_month IS NOT NULL AND prev_2_month IS NOT NULL
+        THEN ROUND((revenue + (revenue - prev_month))::numeric, 2)
+    END as next_month_forecast
+FROM revenue_with_trends
+ORDER BY month;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">59</span>
+                        Customer lifetime value prediction
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate and predict customer lifetime value using historical patterns.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_metrics AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        c.created_at,
+        COUNT(o.order_id) as total_orders,
+        SUM(o.total_amount) as historical_clv,
+        AVG(o.total_amount) as avg_order_value,
+        MAX(o.order_date) - MIN(o.order_date) as customer_lifespan,
+        CASE 
+            WHEN MAX(o.order_date) - MIN(o.order_date) > 0 
+            THEN COUNT(o.order_id)::float / 
+                 EXTRACT(DAYS FROM MAX(o.order_date) - MIN(o.order_date)) * 30
+            ELSE 0 
+        END as monthly_order_frequency
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.first_name, c.last_name, c.created_at
+),
+clv_calculations AS (
+    SELECT 
+        *,
+        CASE 
+            WHEN total_orders > 1 AND monthly_order_frequency > 0
+            THEN avg_order_value * monthly_order_frequency * 24  -- 24 month projection
+            ELSE historical_clv 
+        END as predicted_clv,
+        NTILE(5) OVER (ORDER BY historical_clv DESC) as value_quintile
+    FROM customer_metrics
+    WHERE total_orders > 0
+)
+SELECT 
+    customer_name,
+    total_orders,
+    historical_clv,
+    avg_order_value,
+    ROUND(monthly_order_frequency, 2) as monthly_frequency,
+    ROUND(predicted_clv::numeric, 2) as predicted_24m_clv,
+    CASE value_quintile
+        WHEN 1 THEN 'Champion'
+        WHEN 2 THEN 'High Value'
+        WHEN 3 THEN 'Medium Value'
+        WHEN 4 THEN 'Low Value'
+        ELSE 'New Customer'
+    END as customer_tier
+FROM clv_calculations
+ORDER BY predicted_clv DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">60</span>
+                        Dynamic pricing optimization analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Analyze price elasticity and suggest optimal pricing for products.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH product_sales_analysis AS (
+    SELECT 
+        p.product_id,
+        p.product_name,
+        p.price as current_price,
+        COUNT(oi.order_item_id) as times_ordered,
+        SUM(oi.quantity) as total_quantity_sold,
+        SUM(oi.total_price) as total_revenue,
+        AVG(oi.quantity) as avg_quantity_per_order,
+        -- Calculate percentile rankings
+        PERCENT_RANK() OVER (ORDER BY p.price) as price_percentile,
+        PERCENT_RANK() OVER (ORDER BY COUNT(oi.order_item_id)) as demand_percentile
+    FROM products p
+    LEFT JOIN order_items oi ON p.product_id = oi.product_id
+    GROUP BY p.product_id, p.product_name, p.price
+),
+pricing_recommendations AS (
+    SELECT 
+        *,
+        -- Price elasticity indicator (inverse relationship expected)
+        CASE 
+            WHEN price_percentile > 0.8 AND demand_percentile < 0.2 THEN 'Consider Price Reduction'
+            WHEN price_percentile < 0.2 AND demand_percentile > 0.8 THEN 'Consider Price Increase'
+            WHEN price_percentile > 0.6 AND demand_percentile < 0.4 THEN 'Monitor Closely'
+            ELSE 'Optimal Range'
+        END as pricing_recommendation,
+        -- Suggested price adjustment
+        CASE 
+            WHEN price_percentile > 0.8 AND demand_percentile < 0.2 THEN current_price * 0.9
+            WHEN price_percentile < 0.2 AND demand_percentile > 0.8 THEN current_price * 1.1
+            ELSE current_price
+        END as suggested_price
+    FROM product_sales_analysis
+)
+SELECT 
+    product_name,
+    current_price,
+    ROUND(suggested_price::numeric, 2) as suggested_price,
+    times_ordered,
+    total_quantity_sold,
+    ROUND(total_revenue::numeric, 2) as current_revenue,
+    ROUND((suggested_price * total_quantity_sold)::numeric, 2) as projected_revenue,
+    pricing_recommendation
+FROM pricing_recommendations
+ORDER BY 
+    CASE pricing_recommendation
+        WHEN 'Consider Price Reduction' THEN 1
+        WHEN 'Consider Price Increase' THEN 2
+        WHEN 'Monitor Closely' THEN 3
+        ELSE 4
+    END,
+    total_revenue DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">61</span>
+                        Advanced customer segmentation with RFM
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Implement RFM (Recency, Frequency, Monetary) analysis for customer segmentation.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH rfm_metrics AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        -- Recency: Days since last order
+        CURRENT_DATE - MAX(o.order_date) as recency_days,
+        -- Frequency: Number of orders
+        COUNT(o.order_id) as frequency,
+        -- Monetary: Total spending
+        COALESCE(SUM(o.total_amount), 0) as monetary_value
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    WHERE o.order_id IS NOT NULL  -- Only customers with orders
+    GROUP BY c.customer_id, c.first_name, c.last_name
+),
+rfm_scores AS (
+    SELECT 
+        *,
+        -- Recency Score (1-5, where 5 is most recent)
+        CASE 
+            WHEN recency_days <= 30 THEN 5
+            WHEN recency_days <= 60 THEN 4
+            WHEN recency_days <= 90 THEN 3
+            WHEN recency_days <= 180 THEN 2
+            ELSE 1
+        END as r_score,
+        -- Frequency Score (1-5, where 5 is highest frequency)
+        CASE 
+            WHEN frequency >= 10 THEN 5
+            WHEN frequency >= 7 THEN 4
+            WHEN frequency >= 4 THEN 3
+            WHEN frequency >= 2 THEN 2
+            ELSE 1
+        END as f_score,
+        -- Monetary Score (1-5, where 5 is highest value)
+        NTILE(5) OVER (ORDER BY monetary_value) as m_score
+    FROM rfm_metrics
+),
+rfm_segments AS (
+    SELECT 
+        *,
+        CONCAT(r_score, f_score, m_score) as rfm_score,
+        CASE 
+            WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
+            WHEN r_score >= 3 AND f_score >= 3 AND m_score >= 3 THEN 'Loyal Customers'
+            WHEN r_score >= 4 AND f_score <= 2 THEN 'New Customers'
+            WHEN r_score <= 2 AND f_score >= 3 AND m_score >= 3 THEN 'At Risk'
+            WHEN r_score <= 1 AND f_score >= 3 THEN 'Cannot Lose Them'
+            WHEN r_score <= 2 AND f_score <= 2 AND m_score >= 3 THEN 'Hibernating'
+            WHEN r_score <= 2 AND f_score <= 2 AND m_score <= 2 THEN 'Lost'
+            ELSE 'Others'
+        END as customer_segment
+    FROM rfm_scores
+)
+SELECT 
+    customer_segment,
+    COUNT(*) as customer_count,
+    AVG(recency_days) as avg_recency,
+    AVG(frequency) as avg_frequency,
+    AVG(monetary_value) as avg_monetary_value,
+    SUM(monetary_value) as total_revenue
+FROM rfm_segments
+GROUP BY customer_segment
+ORDER BY total_revenue DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">62</span>
+                        Inventory optimization analysis
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Calculate optimal reorder points and safety stock levels for products.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH product_demand AS (
+    SELECT 
+        p.product_id,
+        p.product_name,
+        p.price,
+        p.stock_quantity as current_stock,
+        COALESCE(SUM(oi.quantity), 0) as total_sold,
+        COALESCE(COUNT(DISTINCT DATE(o.order_date)), 0) as selling_days,
+        COALESCE(AVG(oi.quantity), 0) as avg_daily_demand,
+        COALESCE(STDDEV(oi.quantity), 0) as demand_stddev
+    FROM products p
+    LEFT JOIN order_items oi ON p.product_id = oi.product_id
+    LEFT JOIN orders o ON oi.order_id = o.order_id
+    GROUP BY p.product_id, p.product_name, p.price, p.stock_quantity
+),
+inventory_analysis AS (
+    SELECT 
+        *,
+        -- Calculate days of stock remaining
+        CASE 
+            WHEN avg_daily_demand > 0 
+            THEN current_stock / avg_daily_demand 
+            ELSE 999 
+        END as days_of_stock,
+        -- Safety stock (2 * standard deviation * sqrt of lead time)
+        -- Assuming 7 days lead time
+        CASE 
+            WHEN demand_stddev > 0 
+            THEN CEIL(2 * demand_stddev * SQRT(7))
+            ELSE 5  -- Minimum safety stock
+        END as safety_stock,
+        -- Reorder point (average demand * lead time + safety stock)
+        CASE 
+            WHEN avg_daily_demand > 0 
+            THEN CEIL(avg_daily_demand * 7) + CASE WHEN demand_stddev > 0 THEN CEIL(2 * demand_stddev * SQRT(7)) ELSE 5 END
+            ELSE 10  -- Default reorder point
+        END as reorder_point,
+        -- Economic Order Quantity (simplified)
+        CASE 
+            WHEN avg_daily_demand > 0 
+            THEN CEIL(SQRT(2 * avg_daily_demand * 30 * 50 / (price * 0.25)))  -- EOQ formula
+            ELSE 20  -- Default order quantity
+        END as suggested_order_qty
+    FROM product_demand
+)
+SELECT 
+    product_name,
+    current_stock,
+    ROUND(avg_daily_demand::numeric, 2) as avg_daily_demand,
+    ROUND(days_of_stock::numeric, 1) as days_of_stock,
+    safety_stock,
+    reorder_point,
+    suggested_order_qty,
+    CASE 
+        WHEN current_stock <= reorder_point THEN 'REORDER NOW'
+        WHEN current_stock <= reorder_point * 1.2 THEN 'MONITOR CLOSELY'
+        WHEN days_of_stock > 90 THEN 'OVERSTOCKED'
+        ELSE 'OPTIMAL'
+    END as inventory_status,
+    CASE 
+        WHEN current_stock <= reorder_point 
+        THEN suggested_order_qty 
+        ELSE 0 
+    END as recommended_order_qty
+FROM inventory_analysis
+ORDER BY 
+    CASE 
+        WHEN current_stock <= reorder_point THEN 1
+        WHEN current_stock <= reorder_point * 1.2 THEN 2
+        WHEN days_of_stock > 90 THEN 3
+        ELSE 4
+    END,
+    days_of_stock ASC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">63</span>
+                        Customer journey mapping
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Map customer journey stages and identify conversion patterns.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH customer_journey AS (
+    SELECT 
+        c.customer_id,
+        c.first_name || ' ' || c.last_name as customer_name,
+        c.created_at as registration_date,
+        MIN(o.order_date) as first_purchase_date,
+        COUNT(o.order_id) as total_orders,
+        SUM(o.total_amount) as total_spent,
+        -- Days from registration to first purchase
+        EXTRACT(DAYS FROM MIN(o.order_date) - c.created_at) as days_to_first_purchase,
+        -- Customer lifecycle stage
+        CURRENT_DATE - MAX(COALESCE(o.order_date, c.created_at)) as days_since_last_activity
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.first_name, c.last_name, c.created_at
+),
+journey_stages AS (
+    SELECT 
+        *,
+        CASE 
+            WHEN total_orders = 0 THEN 'Prospect'
+            WHEN total_orders = 1 AND days_since_last_activity <= 90 THEN 'New Customer'
+            WHEN total_orders = 1 AND days_since_last_activity > 90 THEN 'One-time Buyer'
+            WHEN total_orders BETWEEN 2 AND 4 THEN 'Developing'
+            WHEN total_orders >= 5 AND days_since_last_activity <= 90 THEN 'Loyal'
+            WHEN total_orders >= 5 AND days_since_last_activity > 90 THEN 'At Risk'
+            ELSE 'Unknown'
+        END as lifecycle_stage,
+        CASE 
+            WHEN days_to_first_purchase IS NULL THEN 'Never Converted'
+            WHEN days_to_first_purchase <= 1 THEN 'Immediate Converter'
+            WHEN days_to_first_purchase <= 7 THEN 'Quick Converter'
+            WHEN days_to_first_purchase <= 30 THEN 'Slow Converter'
+            ELSE 'Very Slow Converter'
+        END as conversion_type
+    FROM customer_journey
+),
+journey_analysis AS (
+    SELECT 
+        lifecycle_stage,
+        conversion_type,
+        COUNT(*) as customer_count,
+        AVG(total_orders) as avg_orders,
+        AVG(total_spent) as avg_spent,
+        AVG(days_to_first_purchase) as avg_days_to_convert,
+        AVG(days_since_last_activity) as avg_days_since_last_activity
+    FROM journey_stages
+    GROUP BY lifecycle_stage, conversion_type
+)
+SELECT 
+    lifecycle_stage,
+    conversion_type,
+    customer_count,
+    ROUND(avg_orders::numeric, 1) as avg_orders,
+    ROUND(avg_spent::numeric, 2) as avg_spent,
+    ROUND(avg_days_to_convert::numeric, 1) as avg_days_to_convert,
+    ROUND(avg_days_since_last_activity::numeric, 1) as avg_days_since_last_activity,
+    ROUND((customer_count * 100.0 / SUM(customer_count) OVER())::numeric, 1) as percentage_of_customers
+FROM journey_analysis
+ORDER BY 
+    CASE lifecycle_stage
+        WHEN 'Prospect' THEN 1
+        WHEN 'New Customer' THEN 2
+        WHEN 'Developing' THEN 3
+        WHEN 'Loyal' THEN 4
+        WHEN 'One-time Buyer' THEN 5
+        WHEN 'At Risk' THEN 6
+        ELSE 7
+    END,
+    customer_count DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">64</span>
+                        Multi-dimensional sales performance dashboard
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Create a comprehensive sales dashboard with multiple KPIs and comparative analysis.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>WITH sales_metrics AS (
+    -- Current period metrics
+    SELECT 
+        'Current Month' as period_type,
+        DATE_TRUNC('month', CURRENT_DATE) as period_start,
+        COUNT(DISTINCT o.order_id) as order_count,
+        COUNT(DISTINCT o.customer_id) as unique_customers,
+        SUM(o.total_amount) as revenue,
+        AVG(o.total_amount) as avg_order_value,
+        COUNT(DISTINCT oi.product_id) as products_sold,
+        SUM(oi.quantity) as units_sold
+    FROM orders o
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id
+    WHERE DATE_TRUNC('month', o.order_date) = DATE_TRUNC('month', CURRENT_DATE)
+    
+    UNION ALL
+    
+    -- Previous month for comparison
+    SELECT 
+        'Previous Month' as period_type,
+        DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') as period_start,
+        COUNT(DISTINCT o.order_id),
+        COUNT(DISTINCT o.customer_id),
+        SUM(o.total_amount),
+        AVG(o.total_amount),
+        COUNT(DISTINCT oi.product_id),
+        SUM(oi.quantity)
+    FROM orders o
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id
+    WHERE DATE_TRUNC('month', o.order_date) = DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')
+    
+    UNION ALL
+    
+    -- Year to date
+    SELECT 
+        'Year to Date' as period_type,
+        DATE_TRUNC('year', CURRENT_DATE) as period_start,
+        COUNT(DISTINCT o.order_id),
+        COUNT(DISTINCT o.customer_id),
+        SUM(o.total_amount),
+        AVG(o.total_amount),
+        COUNT(DISTINCT oi.product_id),
+        SUM(oi.quantity)
+    FROM orders o
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id
+    WHERE DATE_TRUNC('year', o.order_date) = DATE_TRUNC('year', CURRENT_DATE)
+),
+category_performance AS (
+    SELECT 
+        c.category_name,
+        COUNT(DISTINCT oi.order_id) as orders,
+        SUM(oi.total_price) as revenue,
+        SUM(oi.quantity) as units,
+        RANK() OVER (ORDER BY SUM(oi.total_price) DESC) as revenue_rank
+    FROM categories c
+    JOIN products p ON c.category_id = p.category_id
+    JOIN order_items oi ON p.product_id = oi.product_id
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE DATE_TRUNC('month', o.order_date) = DATE_TRUNC('month', CURRENT_DATE)
+    GROUP BY c.category_id, c.category_name
+),
+customer_acquisition AS (
+    SELECT 
+        COUNT(*) as new_customers,
+        AVG(first_order_value) as avg_first_order_value
+    FROM (
+        SELECT 
+            c.customer_id,
+            MIN(o.total_amount) as first_order_value
+        FROM customers c
+        JOIN orders o ON c.customer_id = o.customer_id
+        WHERE DATE_TRUNC('month', c.created_at) = DATE_TRUNC('month', CURRENT_DATE)
+        GROUP BY c.customer_id
+    ) new_cust
+)
+-- Main dashboard query
+SELECT 
+    'SALES OVERVIEW' as section,
+    period_type as metric,
+    CONCAT(
+        'Orders: ', order_count,
+        ' | Revenue: $', ROUND(revenue::numeric, 2),
+        ' | AOV: $', ROUND(avg_order_value::numeric, 2),
+        ' | Customers: ', unique_customers
+    ) as value
+FROM sales_metrics
+
+UNION ALL
+
+SELECT 
+    'TOP CATEGORIES' as section,
+    CONCAT('#', revenue_rank, ' - ', category_name) as metric,
+    CONCAT(
+        'Revenue: $', ROUND(revenue::numeric, 2),
+        ' | Orders: ', orders,
+        ' | Units: ', units
+    ) as value
+FROM category_performance
+WHERE revenue_rank <= 5
+
+UNION ALL
+
+SELECT 
+    'CUSTOMER METRICS' as section,
+    'New Customer Acquisition' as metric,
+    CONCAT(
+        'New Customers: ', new_customers,
+        ' | Avg First Order: $', ROUND(avg_first_order_value::numeric, 2)
+    ) as value
+FROM customer_acquisition
+
+ORDER BY 
+    CASE section
+        WHEN 'SALES OVERVIEW' THEN 1
+        WHEN 'TOP CATEGORIES' THEN 2
+        WHEN 'CUSTOMER METRICS' THEN 3
+        ELSE 4
+    END,
+    metric;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">65</span>
+                        Orders from last month
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find orders placed in the last 30 days.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT order_id, customer_id, order_date, total_amount
+FROM orders
+WHERE order_date >= CURRENT_DATE - INTERVAL '30 days';</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">66</span>
+                        Cheapest product
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find the product with the lowest price.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price
+FROM products
+ORDER BY price ASC
+LIMIT 1;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">67</span>
+                        Customer count by city
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Count how many customers live in each city.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT city, COUNT(*) as customer_count
+FROM customers
+GROUP BY city
+ORDER BY customer_count DESC;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">68</span>
+                        Products with exact price
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find products that cost exactly $25.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price, stock_quantity
+FROM products
+WHERE price = 25;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">69</span>
+                        Top 3 expensive products
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            List the 3 most expensive products.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT product_name, price
+FROM products
+ORDER BY price DESC
+LIMIT 3;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assignment hard" data-difficulty="hard">
+                    <div class="assignment-header" onclick="toggleAssignment(this)">
+                        <span class="assignment-number">70</span>
+                        Products by specific category
+                        <span class="difficulty-badge hard">Hard</span>
+                    </div>
+                    <div class="assignment-content">
+                        <div class="question">
+                            Find all products in the 'Electronics' category.
+                        </div>
+                        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                        <div class="answer">
+                            <pre>SELECT p.product_name, p.price
+FROM products p
+JOIN categories c ON p.category_id = c.category_id
+WHERE c.category_name = 'Electronics';</pre>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
